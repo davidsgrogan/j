@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo</title>
+    <script src="jquery-2.0.3.js"></script>
+    <style>
+#exist {
+font-size: 72px;
+}
+    </style>
+</head>
+<body>
+    <div id="exist"></div>
+    <script>
+    function format(seconds) {
+      if (seconds >= 10)
+        return seconds;
+      return "0" + seconds;
+    }
+    var success = function(e) {
+      $('#exist').empty();
+      console.log(e);
+      directions = $(e).find("direction[title='Inbound to Downtown']");
+      predictions = directions.find('prediction');
+      var num_predictions = 0;
+      predictions.each(function(index, elem) {
+          if (elem.attributes['affectedByLayover'] == null || !elem.attributes['affectedByLayover'].value) {
+              var seconds = elem.attributes['seconds'].value;
+              console.log("seconds = " + seconds);
+              var to_display = Math.floor(seconds / 60) + "m " + format(seconds % 60) + "s";
+              console.log("to_display = " + to_display);
+              $('#exist').append('<div>' + to_display + '</div>');
+              num_predictions++;
+          }
+      });
+      if (num_predictions == 0) {
+        console.log("nothing");
+        $('#exist').append('<div>nothing</div>');
+      }
+    }
+    var error = function(e) {
+      console.log("got error: " + e);
+    }
+    var ajaxOptions = {
+      url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
+      dataType: "xml",
+      success: success,
+      error: error
+    };
+    $.ajax(ajaxOptions);
+    setInterval(function() {
+        $.ajax(ajaxOptions);
+    }, 10000)
+
+    </script>
+</body>
+</html>
