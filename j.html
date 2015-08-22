@@ -10,7 +10,7 @@
     }
     #error {
       font-size: 36px;
-      font-color: red;
+      color: red;
     }
   </style>
 </head>
@@ -47,7 +47,7 @@
   var error = function(e) {
     // Instead of empty/append, change to replace?
     $('#error').empty();
-    $('#error').append("<div>got error: " + e + "</div>");
+    $('#error').append("<div>got error: " + JSON.stringify(e) + "</div>");
   }
   var ajaxOptions = {
     // Change to stop tag + route specifier, X2
