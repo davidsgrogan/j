@@ -5,13 +5,18 @@
   <title>Demo</title>
   <script src="jquery-2.0.3.js"></script>
   <style>
-    #exist {
+    #times {
       font-size: 72px;
+    }
+    #error {
+      font-size: 36px;
+      font-color: red;
     }
   </style>
 </head>
 <body>
-  <div id="exist"></div>
+  <div id="error"></div>
+  <div id="times"></div>
   <script>
   function format(seconds) {
     if (seconds >= 10)
@@ -19,7 +24,8 @@
     return "0" + seconds;
   }
   var success = function(e) {
-    $('#exist').empty();
+    $('#error').empty();
+    $('#times').empty();
     console.log(e);
     directions = $(e).find("direction[title='Inbound to Downtown']");
     predictions = directions.find('prediction');
@@ -28,22 +34,25 @@
       if (elem.attributes['affectedByLayover'] == null ||
           !elem.attributes['affectedByLayover'].value) {
         var seconds = elem.attributes['seconds'].value;
-        console.log("seconds = " + seconds);
         var to_display = Math.floor(seconds / 60) + "m " + format(seconds % 60) + "s";
-        console.log("to_display = " + to_display);
-        $('#exist').append('<div>' + to_display + '</div>');
+        $('#times').append('<div>' + to_display + '</div>');
         num_predictions++;
       }
     });
     if (num_predictions == 0) {
       console.log("nothing");
-      $('#exist').append('<div>nothing</div>');
+      $('#times').append('<div>nothing</div>');
     }
   }
   var error = function(e) {
-    console.log("got error: " + e);
+    // Instead of empty/append, change to replace?
+    $('#error').empty();
+    $('#error').append("<div>got error: " + e + "</div>");
   }
   var ajaxOptions = {
+    // Change to stop tag + route specifier, X2
+    // And change command to predictionsForMultiStops
+    // "&stops=J|3996"
     url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
     dataType: "xml",
     success: success,
@@ -53,7 +62,7 @@
   $.ajax(ajaxOptions);
   setInterval(function() {
       $.ajax(ajaxOptions);
-  }, 10000)
+  }, 10 * 1000)
 
   </script>
 </body>
