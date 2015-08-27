@@ -47,7 +47,7 @@
   var error = function(e) {
     // Instead of empty/append, change to replace?
     $('#error').empty();
-    $('#error').append("<div>got error: " + JSON.stringify(e) + "</div>");
+    $('#error').append("<div>got error: " + JSON.stringify(e, null, 1) + "</div>");
   }
   var ajaxOptions = {
     // Change to stop tag + route specifier, X2
