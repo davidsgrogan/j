@@ -6,10 +6,10 @@
   <script src="jquery-2.0.3.js"></script>
   <style>
     #times {
-      font-size: 72px;
+      font-size: 216px;
     }
     #error {
-      font-size: 36px;
+      font-size: 108px;
       color: red;
     }
   </style>
@@ -23,24 +23,41 @@
       return seconds;
     return "0" + seconds;
   }
+  var for_each_fills = [];
+  var alignment;
+  function forEach(index, elem) {
+    if (elem.attributes['affectedByLayover'] == null ||
+        !elem.attributes['affectedByLayover'].value) {
+      var seconds = elem.attributes['seconds'].value;
+      for_each_fills.push({"seconds": seconds, "align": alignment});
+    }
+  }
   var success = function(e) {
     $('#error').empty();
     $('#times').empty();
-    console.log(e);
+    for_each_fills = [];
+//    console.log(e);
+
+    alignment = "left";
     directions = $(e).find("direction[title='Inbound to Downtown']");
     predictions = directions.find('prediction');
-    var num_predictions = 0;
-    predictions.each(function(index, elem) {
-      if (elem.attributes['affectedByLayover'] == null ||
-          !elem.attributes['affectedByLayover'].value) {
-        var seconds = elem.attributes['seconds'].value;
-        var to_display = Math.floor(seconds / 60) + "m " + format(seconds % 60) + "s";
-        $('#times').append('<div>' + to_display + '</div>');
-        num_predictions++;
-      }
+    predictions.each(forEach);
+    alignment = "right";
+    directions = $(e).find("direction[title='Inbound to Potrero Hill']");
+    predictions = directions.find('prediction');
+    predictions.each(forEach);
+    for_each_fills = for_each_fills.sort(function(a, b) {
+//      return parseInt(a.seconds, 10) > parseInt(b.seconds, 10);
+      return a.seconds - b.seconds;
     });
-    if (num_predictions == 0) {
-      console.log("nothing");
+    for (var i = 0; i < for_each_fills.length; i++) {
+      var seconds = for_each_fills[i].seconds;
+      var to_display = Math.floor(seconds / 60) + "m " + format(seconds % 60) + "s";
+      $('#times').append('<div style="text-align:' + for_each_fills[i].align + '">' + to_display + "</div>");
+    }
+
+    if (for_each_fills.length == 0) {
+//      console.log("nothing");
       $('#times').append('<div>nothing</div>');
     }
   }
@@ -50,10 +67,8 @@
     $('#error').append("<div>got error: " + JSON.stringify(e, null, 1) + "</div>");
   }
   var ajaxOptions = {
-    // Change to stop tag + route specifier, X2
-    // And change command to predictionsForMultiStops
-    // "&stops=J|3996"
-    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
+    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461",
+//    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
     dataType: "xml",
     success: success,
     error: error
