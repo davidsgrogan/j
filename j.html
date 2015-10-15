@@ -18,13 +18,14 @@
   <div id="error"></div>
   <div id="times"></div>
   <script>
-  function format(seconds) {
+  function add_leading_zero(seconds) {
     if (seconds >= 10)
       return seconds;
     return "0" + seconds;
   }
   var for_each_fills = [];
   var alignment;
+  // TODO: Change alignment from global to a parameter. Pass in bound function.
   function forEach(index, elem) {
     if (elem.attributes['affectedByLayover'] == null ||
         !elem.attributes['affectedByLayover'].value) {
@@ -52,7 +53,7 @@
     });
     for (var i = 0; i < for_each_fills.length; i++) {
       var seconds = for_each_fills[i].seconds;
-      var to_display = Math.floor(seconds / 60) + "m " + format(seconds % 60) + "s";
+      var to_display = Math.floor(seconds / 60) + "m " + add_leading_zero(seconds % 60) + "s";
       $('#times').append('<div style="text-align:' + for_each_fills[i].align + '">' + to_display + "</div>");
     }
 
@@ -62,7 +63,7 @@
     }
   }
   var error = function(e) {
-    // Instead of empty/append, change to replace?
+    // TODO: Instead of empty/append, change to replace?
     $('#error').empty();
     $('#error').append("<div>got error: " + JSON.stringify(e, null, 1) + "</div>");
   }
@@ -73,7 +74,7 @@
     success: success,
     error: error
   };
-  // Change this to fetch instead of jquery.
+  // TODO: Use fetch instead of jquery.
   $.ajax(ajaxOptions);
   setInterval(function() {
       $.ajax(ajaxOptions);
