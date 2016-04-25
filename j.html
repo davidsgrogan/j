@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Demo</title>
+  <title>J 48</title>
   <script src="jquery-2.0.3.js"></script>
   <style>
     #times {
@@ -25,7 +25,7 @@
   }
   var for_each_fills = [];
   var alignment;
-  // TODO: Change alignment from global to a parameter. Pass in bound function.
+  // TODO: Change alignment from global to a parameter. Pass bound function to forEach.
   function forEach(index, elem) {
     if (elem.attributes['affectedByLayover'] == null ||
         !elem.attributes['affectedByLayover'].value) {
@@ -40,15 +40,14 @@
     console.log(e);
 
     alignment = "left";
-    directions = $(e).find("direction[title^='Inbound to Embarcadero']");
+    directions = $(e).find("predictions[routeTag='J'] > direction[title^='Inbound']");
     predictions = directions.find('prediction');
     predictions.each(forEach);
     alignment = "right";
-    directions = $(e).find("direction[title^='Inbound to Third']");
+    directions = $(e).find("predictions[routeTag='48'] > direction[title^='Inbound']");
     predictions = directions.find('prediction');
     predictions.each(forEach);
     for_each_fills = for_each_fills.sort(function(a, b) {
-//      return parseInt(a.seconds, 10) > parseInt(b.seconds, 10);
       return a.seconds - b.seconds;
     });
     for (var i = 0; i < for_each_fills.length; i++) {
