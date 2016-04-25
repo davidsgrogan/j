@@ -40,11 +40,11 @@
     console.log(e);
 
     alignment = "left";
-    directions = $(e).find("direction[title='Inbound to Downtown']");
+    directions = $(e).find("direction[title^='Inbound to Embarcadero']");
     predictions = directions.find('prediction');
     predictions.each(forEach);
     alignment = "right";
-    directions = $(e).find("direction[title='Inbound to Potrero Hill']");
+    directions = $(e).find("direction[title^='Inbound to Third']");
     predictions = directions.find('prediction');
     predictions.each(forEach);
     for_each_fills = for_each_fills.sort(function(a, b) {
