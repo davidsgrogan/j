@@ -5,36 +5,52 @@
   <title>J 48</title>
   <script src="jquery-2.0.3.js"></script>
   <style>
-    html, body {
-      height: 100%;
-      margin-top: 0px;
-      padding-top: 0px;
+    * {
+      margin: 0;
+      padding: 0;
     }
     #error {
       font-size: 108px;
       color: red;
     }
-    .inline {
-      display: inline-block;
-    }
     #times {
       font-size: 216px;
-      border: solid 1px lime;
+/*      border: solid 1px lime; */
       width: 98%;
-      vertical-align: top;
     }
-    #outerBar {
-      height: 100%;
+    .bars {
+      height: 100vh;
       background-color: red;
-      width: 1%;
-      outline: solid 2px blue;
+      width: 0.5%;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      outline: solid 2px green;
+    }
+    #redBar {
+    }
+    #greenBar {
+      height: 0vh;
+      background-color: green;
+      animation-duration: 10s;
+      animation-name: falldown;
+      animation-timing-function: linear;
+    }
+    @keyframes falldown {
+      from {
+        height: 100vh;
+      }
+      to {
+        height: 0vh;
+      }
     }
   </style>
 </head>
 <body>
   <div id="error"></div>
-  <div class="inline" id="times"></div>
-  <div class="inline" id="outerBar"></div>
+  <div id="times"></div>
+  <div class="bars" id="redBar"></div>
+  <div class="bars" id="greenBar"></div>
   <script>
   function add_leading_zero(seconds) {
     if (seconds >= 10)
