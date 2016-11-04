@@ -1,0 +1,30 @@
+<body copyright="All data copyright San Francisco Muni 2016.">
+<predictions agencyTitle="San Francisco Muni" routeTitle="48-Quintara-24th Street" routeTag="48" stopTitle="24th St &amp; Church St" stopTag="3461">
+  <direction title="Inbound to Third + 20th Streets">
+  <prediction epochTime="1477761644587" seconds="249" minutes="4" isDeparture="false" dirTag="48___I_F00" vehicle="8425" block="4801" tripTag="7264421"/>
+  <prediction epochTime="1477762650735" seconds="1255" minutes="20" isDeparture="false" dirTag="48___I_F00" vehicle="8445" block="4804" tripTag="7264422"/>
+  <prediction epochTime="1477763850735" seconds="2455" minutes="40" isDeparture="false" affectedByLayover="true" dirTag="48___I_F00" vehicle="8452" block="4805" tripTag="7264423"/>
+  <prediction epochTime="1477765050735" seconds="3655" minutes="60" isDeparture="false" affectedByLayover="true" dirTag="48___I_F00" vehicle="8437" block="4802" tripTag="7264424"/>
+  <prediction epochTime="1477766250735" seconds="4855" minutes="80" isDeparture="false" affectedByLayover="true" dirTag="48___I_F00" vehicle="8420" block="4803" tripTag="7264382"/>
+  </direction>
+<message text="We're on Twitter: @sfmta_muni" priority="Low"/>
+<message text="Seeing &quot;registering&quot;? The system is being upgraded." priority="Low"/>
+<message text="Sign up for email &amp; text service alerts at sfmta.com." priority="Low"/>
+</predictions>
+<predictions agencyTitle="San Francisco Muni" routeTitle="J-Church" routeTag="J" stopTitle="Church St &amp; 24th St" stopTag="3996">
+  <direction title="Inbound to Embarcadero Station">
+  <prediction epochTime="1477761626475" seconds="231" minutes="3" isDeparture="false" dirTag="J____I_F00" vehicle="1543" block="9302" tripTag="7275363"/>
+  <prediction epochTime="1477762261293" seconds="866" minutes="14" isDeparture="false" dirTag="J____I_F00" vehicle="1493" block="9309" tripTag="7275364"/>
+  <prediction epochTime="1477762823293" seconds="1428" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="J____I_F00" vehicle="1410" block="9307" tripTag="7275365"/>
+  <prediction epochTime="1477763363293" seconds="1968" minutes="32" isDeparture="false" affectedByLayover="true" dirTag="J____I_F00" vehicle="1401" block="9303" tripTag="7275366"/>
+  <prediction epochTime="1477763903293" seconds="2508" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="J____I_F00" vehicle="1472" block="9304" tripTag="7275367"/>
+  </direction>
+<message text="We're on Twitter: @sfmta_muni" priority="Low"/>
+<message text="Seeing &quot;registering&quot;? The system is being upgraded." priority="Low"/>
+<message text="No Elevator at&#10;Van Ness Station" priority="Normal"/>
+<message text="No Elevator at&#10;Powell Station" priority="Normal"/>
+<message text="Sign up for email &amp; text service alerts at sfmta.com." priority="Low"/>
+<message text="Temp. J &amp; K stop changes @ Balboa Park now thru end of year." priority="Normal"/>
+<message text="Balboa Park Sta. entrance on SJ Av. closed til Jan. for construction." priority="Low"/>
+</predictions>
+</body>

@@ -27,21 +27,23 @@
       bottom: 0;
       outline: solid 2px green;
     }
-    #redBar {
-    }
-    #greenBar {
-      height: 0vh;
-      background-color: green;
+    .animationClass {
       animation-duration: 10s;
       animation-name: falldown;
       animation-timing-function: linear;
     }
+    #greenBar {
+      height: 100vh;
+      background-color: white;
+    }
     @keyframes falldown {
       from {
         height: 100vh;
+        background-color: green;
       }
       to {
         height: 0vh;
+        background-color: green;
       }
     }
   </style>
@@ -94,31 +96,36 @@
 //      console.log("nothing");
       $('#times').append('<div>nothing</div>');
     }
+    startAnimation();
   }
   var error = function(e) {
     // TODO: Instead of empty/append, change to replace?
     $('#error').empty();
     $('#error').append("<div>got error: " + JSON.stringify(e, null, 1) + "</div>");
+    startAnimation();
   }
-  var test = 1;
-  var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
-  if (test)
-    url = "dogs.xml";
-  var ajaxOptions = {
-    url: url,
-//    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
-    dataType: "xml",
-    success: success,
-    error: error
-  };
-  // TODO: Use fetch instead of jquery.
-  $.ajax(ajaxOptions);
-  if (!test) {
-    setInterval(function() {
-      $.ajax(ajaxOptions);
-    }, 10 * 1000);
+  function startAnimation() {
+    $("#greenBar").addClass("animationClass");
+    greenBar.addEventListener("animationend", whenOver, false);
   }
-
+  function whenOver(e) {
+    $("#greenBar").removeClass("animationClass");
+    fetchNewData();
+  }
+  function fetchNewData() {
+    var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
+//    url = "dogs.xml";
+    var ajaxOptions = {
+      url: url,
+  //    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
+      dataType: "xml",
+      success: success,
+      error: error
+    };
+    // TODO: Use fetch instead of jquery.
+    $.ajax(ajaxOptions);
+  }
+  fetchNewData();
   </script>
 </body>
 </html>
