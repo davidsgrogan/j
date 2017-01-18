@@ -16,43 +16,12 @@
     #times {
       font-size: 216px;
 /*      border: solid 1px lime; */
-      width: 98%;
-    }
-    .bars {
-      height: 100vh;
-      background-color: red;
-      width: 0.5%;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      outline: solid 2px green;
-    }
-    .animationClass {
-      animation-duration: 10s;
-      animation-name: falldown;
-      animation-timing-function: linear;
-    }
-    #greenBar {
-      height: 100vh;
-      background-color: white;
-    }
-    @keyframes falldown {
-      from {
-        height: 100vh;
-        background-color: green;
-      }
-      to {
-        height: 0vh;
-        background-color: green;
-      }
     }
   </style>
 </head>
 <body>
   <div id="error"></div>
   <div id="times"></div>
-  <div class="bars" id="redBar"></div>
-  <div class="bars" id="greenBar"></div>
   <script>
   function add_leading_zero(seconds) {
     if (seconds >= 10)
@@ -96,21 +65,11 @@
 //      console.log("nothing");
       $('#times').append('<div>nothing</div>');
     }
-    startAnimation();
   }
   var error = function(e) {
     // TODO: Instead of empty/append, change to replace?
     $('#error').empty();
     $('#error').append("<div>got error: " + JSON.stringify(e, null, 1) + "</div>");
-    startAnimation();
-  }
-  function startAnimation() {
-    $("#greenBar").addClass("animationClass");
-    greenBar.addEventListener("animationend", whenOver, false);
-  }
-  function whenOver(e) {
-    $("#greenBar").removeClass("animationClass");
-    fetchNewData();
   }
   function fetchNewData() {
     var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
@@ -124,6 +83,9 @@
     };
     // TODO: Use fetch instead of jquery.
     $.ajax(ajaxOptions);
+    setInterval(function() {
+      $.ajax(ajaxOptions);
+    }, 10 * 1000)
   }
   fetchNewData();
   </script>
