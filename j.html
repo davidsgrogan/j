@@ -45,7 +45,7 @@
     console.log(e);
 
     alignment = "left";
-    directions = $(e).find("predictions[routeTag='KJ'] > direction[title^='Inbound']");
+    directions = $(e).find("predictions[routeTag='J'] > direction[title^='Inbound']");
     predictions = directions.find('prediction');
     predictions.each(forEach);
     alignment = "right";
@@ -72,8 +72,7 @@
     $('#error').append("<div>got error: " + JSON.stringify(e, null, 1) + "</div>");
   }
   function fetchNewData() {
-    var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=KJ|3996&stops=48|3461";
-    //var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
+    var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
 //    url = "dogs.xml";
     var ajaxOptions = {
       url: url,
