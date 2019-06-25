@@ -1,0 +1,10 @@
+[Unit]
+Description=Kiosk
+
+[Service]
+Type=oneshot
+User=dgrogan
+ExecStart=/usr/bin/startx /etc/X11/Xsession /opt/kiosk.sh --
+
+[Install]
+WantedBy=multi-user.target
