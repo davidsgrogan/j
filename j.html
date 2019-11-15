@@ -17,6 +17,16 @@
     #times {
       font-size: 200px;
     }
+    .J {
+      text-align: left;
+      -webkit-text-stroke: 3px darkorange;
+      -webkit-text-fill-color: gray;
+    }
+    .bus48 {
+      text-align: right;
+      -webkit-text-fill-color: gray;
+      -webkit-text-stroke: 2px royalblue;
+    }
   </style>
 </head>
 <body>
@@ -41,7 +51,7 @@
     if (elem.attributes['affectedByLayover'] == null ||
         !elem.attributes['affectedByLayover'].value) {
       var seconds = elem.attributes['seconds'].value;
-      for_each_fills.push({"seconds": seconds, "align": alignment});
+      for_each_fills.push({"seconds": seconds, "route": route});
     }
   }
   var success = function(e) {
@@ -50,21 +60,21 @@
     for_each_fills = [];
     console.log(e);
 
-    alignment = "left";
+    route = "J";
     directions = $(e).find("predictions[routeTag='J'] > direction[title^='Inbound']");
     predictions = directions.find('prediction');
-    predictions.each(forEach);
-    alignment = "right";
+    predictions.each(forEachPrediction);
+    route = "bus48";
     directions = $(e).find("predictions[routeTag='48'] > direction[title^='Inbound']");
     predictions = directions.find('prediction');
-    predictions.each(forEach);
+    predictions.each(forEachPrediction);
     for_each_fills = for_each_fills.sort(function(a, b) {
       return a.seconds - b.seconds;
     });
     for (var i = 0; i < for_each_fills.length; i++) {
       var seconds = for_each_fills[i].seconds;
       var to_display = Math.floor(seconds / 60) + "m " + add_leading_zero(seconds % 60) + "s";
-      $('#times').append('<div style="text-align:' + for_each_fills[i].align + '">' + to_display + "</div>");
+      $('#times').append('<div class="' + for_each_fills[i].route + '">' + to_display + "</div>");
     }
 
     if (for_each_fills.length == 0) {
