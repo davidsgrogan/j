@@ -28,10 +28,16 @@
       return seconds;
     return "0" + seconds;
   }
+
+  var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
+  //    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
+  if (location.search == "?debug")
+    url = "dogs.xml";
+
   var for_each_fills = [];
   var alignment;
   // TODO: Change alignment from global to a parameter. Pass bound function to forEach.
-  function forEach(index, elem) {
+  function forEachPrediction(index, elem) {
     if (elem.attributes['affectedByLayover'] == null ||
         !elem.attributes['affectedByLayover'].value) {
       var seconds = elem.attributes['seconds'].value;
@@ -72,11 +78,8 @@
     $('#error').append("<div>got error: " + JSON.stringify(e, null, 1) + "</div>");
   }
   function fetchNewData() {
-    var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
-//    url = "dogs.xml";
     var ajaxOptions = {
       url: url,
-  //    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
       dataType: "xml",
       success: success,
       error: error
