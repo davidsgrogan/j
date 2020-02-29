@@ -21,6 +21,17 @@
       text-align: left;
       -webkit-text-stroke: 10px darkorange;
       -webkit-text-fill-color: gray;
+      display: flex;
+      align-items: center;
+    }
+    .jtime {
+      flex: 0 0 auto;
+    }
+    .weird {
+      -webkit-text-fill-color: initial;
+      -webkit-text-stroke: initial;
+      font-size: 40px;
+      flex: 0 1 auto;
     }
     .bus48 {
       text-align: right;
@@ -41,8 +52,11 @@
 
   var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=sf-muni&stops=J|3996&stops=48|3461";
   //    url: "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=13996",
-  if (location.search == "?debug")
-    url = "dogs.xml";
+  var debug = false;
+  if (location.search == "?debug") {
+    url = "dogs3.xml";
+    debug = true;
+  }
 
   var for_each_fills = [];
   var alignment;
@@ -51,7 +65,14 @@
     if (elem.attributes['affectedByLayover'] == null ||
         !elem.attributes['affectedByLayover'].value) {
       var seconds = elem.attributes['seconds'].value;
-      for_each_fills.push({"seconds": seconds, "route": route});
+      let weird = "";
+      if (route == "J") {
+        let inbound = elem.parentNode["attributes"]["title"].value;
+        if (inbound != "Inbound to Embarcadero Station") {
+          weird = inbound;
+        }
+      }
+      for_each_fills.push({"seconds": seconds, "route": route, "weird": weird});
     }
   }
   var success = function(e) {
@@ -74,6 +95,11 @@
     for (var i = 0; i < for_each_fills.length; i++) {
       var seconds = for_each_fills[i].seconds;
       var to_display = Math.floor(seconds / 60) + "m " + add_leading_zero(seconds % 60) + "s";
+      var weird = for_each_fills[i].weird;
+      let route = for_each_fills[i].route;
+      if (route == "J") {
+        to_display = `<div class=jtime>${to_display}</div><div class=weird>${weird}</div>`
+      }
       $('#times').append('<div class="' + for_each_fills[i].route + '">' + to_display + "</div>");
     }
 
@@ -96,9 +122,11 @@
     };
     // TODO: Use fetch instead of jquery.
     $.ajax(ajaxOptions);
-    setInterval(function() {
-      $.ajax(ajaxOptions);
-    }, 10 * 1000)
+    if (!debug) {
+      setInterval(function() {
+        $.ajax(ajaxOptions);
+      }, 10 * 1000)
+    }
   }
   fetchNewData();
   </script>
