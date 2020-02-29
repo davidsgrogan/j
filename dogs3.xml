@@ -1,0 +1,21 @@
+<body copyright="All data copyright San Francisco Muni 2020.">
+<predictions agencyTitle="San Francisco Muni" routeTitle="48-Quintara-24th Street" routeTag="48" stopTitle="24th St &amp; Church St" stopTag="3461">
+  <direction title="Inbound to Third + 20th Streets">
+  <prediction epochTime="1582954518063" seconds="1102" minutes="18" isDeparture="false" affectedByLayover="true" dirTag="48___I_F00" vehicle="8837" block="9591" tripTag="9099263"/>
+  <prediction epochTime="1582955718063" seconds="2302" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="48___I_F00" vehicle="8818" block="4811" tripTag="9099262"/>
+  <prediction epochTime="1582957025502" seconds="3610" minutes="60" isDeparture="false" affectedByLayover="true" dirTag="48___I_F00" vehicle="8647" block="4892" tripTag="9099261"/>
+  </direction>
+</predictions>
+<predictions agencyTitle="San Francisco Muni" routeTitle="J-Church" routeTag="J" stopTitle="Church St &amp; 24th St" stopTag="3996">
+<direction title="Inbound to Church + Duboce">
+<prediction epochTime="1582953800620" seconds="385" minutes="6" isDeparture="false" dirTag="J____I_D00" vehicle="2021" block="9308" tripTag="9112061"/>
+</direction>
+<direction title="Inbound to Embarcadero Station">
+<prediction epochTime="1582954576751" seconds="1161" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="J____I_F00" vehicle="1402" block="9305" tripTag="9112166"/>
+<prediction epochTime="1582955656751" seconds="2241" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="J____I_F00" vehicle="1469" block="9304" tripTag="9112167"/>
+<prediction epochTime="1582956856751" seconds="3441" minutes="57" isDeparture="false" affectedByLayover="true" dirTag="J____I_F00" vehicle="1423" block="9309" tripTag="9112168"/>
+<prediction epochTime="1582958056751" seconds="4641" minutes="77" isDeparture="false" affectedByLayover="true" dirTag="J____I_F00" vehicle="1430" block="9310" tripTag="9112169"/>
+</direction>
+<message text="No Elevator at Powell Station" priority="Normal"/>
+</predictions>
+</body>
